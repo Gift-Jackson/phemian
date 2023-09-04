@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrueCryptox</title>
+    <!-- MATERIAL ICON -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            color: #444;
+            outline: none;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f1f2f5;
+        }
+
+        .container {
+            background-color: #fefefe;
+            padding: 1rem;
+            border-radius: .5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header p {
+            font-size: 20px;
+        }
+
+        .header b {
+            color: #888;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .input-control {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-control a {
+            position: absolute;
+            right: 0;
+            color: mediumslateblue;
+            /* text-decoration: none; */
+        }
+
+        #check {
+            margin-left: 5px;
+            accent-color: blue;
+        }
+
+        .input {
+            width: 100%;
+            margin-top: 5px;
+            padding: .8rem;
+            border: 2px solid #ddd;
+            border-radius: .5rem;
+        }
+
+        .input.active {
+            border-color: crimson;
+        }
+
+        .input:focus {
+            border: 2px solid blue;
+        }
+
+        .btn {
+            width: 100%;
+            padding: .8rem;
+            border: 0;
+            color: #fefefe;
+            background-color: blue;
+            border-radius: .5rem;
+            font-size: 17px;
+        }
+
+        /* .btn:active {
+            transform: scale(.9);
+        } */
+
+        .btn:hover {
+            cursor: pointer;
+            filter: brightness(80%);
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        p a {
+            color: mediumslateblue;
+        }
+
+        .mark {
+            color: blue;
+        }
+
+        .input-field {
+            position: relative;
+        }
+
+        .eye-icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translatey(-35%);
+            cursor: pointer;
+            color: #888;
+        }
+
+        .eye-open {
+            display: none;
+        }
+
+        .error-message {
+            padding: .6rem;
+            text-align: center;
+            border-radius: .5rem;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .error-message.error {
+            display: block;
+            border: 1px solid crimson;
+            background-color: rgb(245, 219, 224);
+            color: crimson;
+        }
+
+        .error-message.success {
+            background-color: #e1fced;
+            border: 1px solid #3cb371;
+            color: #3cb371;
+            display: block;
+        }
+
+        @media screen and (max-width:450px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <p><span class="mark">True</span>Cryptox</p>
+            <p><b>Welcome Back To TrueCryptox</b></p>
+        </div>
+
+        <form action="">
+            <div class="error-message">An error has occurred!</div>
+
+            <div class="input-control">
+                <label for="uname">Username Or Email:</label>
+                <input type="text" class="input" id="uname" placeholder="Enter Username Or Email">
+            </div>
+            <div class="input-control">
+                <label for="password">Password:</label>
+                <a href="#">forgotten password?</a>
+                <div class="input-field">
+                    <input type="password" class="input" id="password" placeholder="Enter Password">
+                    <span class="material-symbols-outlined eye-icon eye-open">visibility</span>
+                    <span class="material-symbols-outlined eye-icon eye-close">visibility_off</span>
+                </div>
+            </div>
+            <div class="input-control">
+                <input type="checkbox" name="" id="check">
+                <label for="check">Remember me!</label>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="#">Register</a></p>
+    </div>
+
+    <script>
+        const form = document.querySelector("form");
+        const eye_icon = document.querySelectorAll(".eye-icon");
+        const uname = document.querySelector("#uname");
+        const psw = document.querySelector("#password");
+        const eye_open = document.querySelector(".eye-open");
+        const eye_close = document.querySelector(".eye-close");
+        const errorMsg = document.querySelector(".error-message");
+
+        form.addEventListener("submit", () => {
+            if (uname.value === "") {
+                errorMsg.classList.add("error");
+                errorMsg.textContent = "Input a Username or email!";
+                setTimeout(function () {
+                    errorMsg.classList.remove("error");
+                }, 2500);
+            }
+            else if (psw.value === "") {
+                errorMsg.classList.add("error");
+                errorMsg.textContent = "Password is required!";
+                setTimeout(function () {
+                    errorMsg.classList.remove("error");
+                }, 2500);
+            }
+            else {
+                errorMsg.classList.add("success");
+                errorMsg.textContent = "Login Successful!";
+                setTimeout(function () {
+                    errorMsg.classList.remove("success");
+                }, 2500);
+            }
+        });
+
+        eye_icon.forEach((eye) => {
+            eye.addEventListener("click", () => {
+                if (psw.type === "password") {
+                    psw.type = "text";
+                    eye_open.style.display = "block";
+                    eye_close.style.display = "none";
+                }
+                else {
+                    psw.type = "password";
+                    eye_open.style.display = "none";
+                    eye_close.style.display = "block";
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
